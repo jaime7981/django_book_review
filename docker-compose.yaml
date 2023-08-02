@@ -6,7 +6,7 @@ services:
     volumes:
      - ./book_review:/django_app
     image: webapp:django_app
-    container_name: nginx_book_review
+    container_name: django_book_review
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
@@ -15,6 +15,7 @@ services:
       - db
     ports:
      - 8000:8000
+    restart: always
     #command: gunicorn BookReview.wsgi:application --bind 0.0.0.0:8000
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python seed_data.py && python manage.py runserver 0.0.0.0:8000"
   db:
@@ -32,7 +33,7 @@ services:
     volumes:
      - ./book_review:/django_app
     image: nginx:nginx_app
-    container_name: django_book_review
+    container_name: nginx_book_review
     depends_on:
       - webapp
     ports:
