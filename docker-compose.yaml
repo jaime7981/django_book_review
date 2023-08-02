@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  webapp:
+    build: ./boook_review
+    volumes:
+     - ./boook_review:/django_app
+    image: webapp:django_app
+    container_name: nginx_book_review
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWD=${DB_PASSWD}
+    depends_on:
+      - db
+    ports:
+     - 8000:8000
+    restart: always
+    #command: gunicorn BookReview.wsgi:application --bind 0.0.0.0:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python seed_data.py && python manage.py runserver 0.0.0.0:8000"
+  db:
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    image: postgres
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+    ports:
+      - 5432:5432
+    restart: always
+  nginx:
+    build: ./nginx
+    volumes:
+     - ./book_review:/django_app
+    image: nginx:nginx_app
+    container_name: django_book_review
+    depends_on:
+      - webapp
+    ports:
+     - 80:80
+    restart: always
