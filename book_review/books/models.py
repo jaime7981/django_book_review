@@ -25,8 +25,10 @@ class Author(models.Model):
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=100)
-
+    name = models.CharField(
+        max_length=100,
+        unique=True
+    )
 
 class Review(models.Model):
     text = models.TextField()
