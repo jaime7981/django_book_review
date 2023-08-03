@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +97,9 @@ LOGGING = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates',
+                 'books/temlpates',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -8,6 +8,7 @@ services:
     image: webapp:django_app
     container_name: django_book_review
     environment:
+      - SECRET_KEY=${SECRET_KEY}
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWD=${DB_PASSWD}

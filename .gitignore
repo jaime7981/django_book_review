@@ -1,6 +1,7 @@
 #boork_review project
 data/
 static_collect/
+migrations/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
