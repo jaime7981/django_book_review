@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from models import Book, Author, Country, Review, Sales
 
 # Create your views here.
 def main(request):
-    return render(request, 'main.html', context={})
+    authors = Author.objects.all()
+    return render(request, 'main.html', context={'authors': authors})

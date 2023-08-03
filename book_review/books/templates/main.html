@@ -4,4 +4,15 @@
 
 <h1>Main</h1>
 
+<table>
+    <tablehead>
+        <tr>
+            <th>Author</th>
+        </tr>
+    </tablehead>
+    {% for author in authors %}
+        <p>{{ author.name }}</p>
+    {% endfor %}
+</table>
+
 {% endblock %}

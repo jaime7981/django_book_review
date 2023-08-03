@@ -15,7 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import RedirectView
 from books.scaffolding import BookCrudManager, AuthorCrudManager, CountryCrudManager, ReviewCrudManager, SalesCrudManager
 book_crud = BookCrudManager()
 author_crud = AuthorCrudManager()
@@ -24,6 +25,8 @@ review_crud = ReviewCrudManager()
 sales_crud = SalesCrudManager()
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/books/')),
+    path('books/', include('books.urls')),
     path('admin/', admin.site.urls),
 ]
 
