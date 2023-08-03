@@ -23,3 +23,5 @@ urlpatterns = [
     path('books/', include('books.urls')),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += book_crud.get_url_patterns()
