@@ -1,27 +1,32 @@
 from django.db import models
 
+
 class Book(models.Model):
     name = models.CharField(max_length=100)
     summary = models.TextField()
     publish_date = models.DateField()
 
     author = models.ForeignKey(
-        'Author', 
+        'Author',
         on_delete=models.CASCADE
     )
-    
+
+
 class Author(models.Model):
     name = models.CharField(max_length=100)
     birth_date = models.DateField()
     description = models.TextField()
-    
+
     country = models.ForeignKey(
-        'Country', 
-        on_delete=models.SET_NULL
+        'Country',
+        on_delete=models.SET_NULL,
+        null=True
     )
+
 
 class Country(models.Model):
     name = models.CharField(max_length=100)
+
 
 class Review(models.Model):
     text = models.TextField()
@@ -30,9 +35,10 @@ class Review(models.Model):
     date = models.DateField()
 
     book = models.ForeignKey(
-        'Book', 
+        'Book',
         on_delete=models.CASCADE
     )
+
 
 class Sales(models.Model):
     date = models.DateField()
