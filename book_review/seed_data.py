@@ -1,9 +1,9 @@
-import datetime
 import os
 import django
 import random
+from datetime import datetime
 from faker import factory, Faker
-from model_bakery.recipe import Recipe,foreign_key 
+from model_bakery.recipe import Recipe, foreign_key 
 
 # Set the DJANGO_SETTINGS_MODULE to your project's settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'book_review.settings')
@@ -13,7 +13,7 @@ django.setup()
 
 from books.models import Book, Author, Country, Review, Sales
 
-#Set Faker
+# Set Faker
 fake = Faker()
 
 
