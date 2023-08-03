@@ -22,7 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-msbp3sk1=o6mo&q^uvn82#%#k$5xb!o(_eu_f0n842pqsv!0)t'
-SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'books.apps.BooksConfig',
+    'generic_scaffold'
 ]
 
 MIDDLEWARE = [
@@ -131,11 +131,11 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': f'{os.environ["DB_NAME"]}',
-        'USER': f'{os.environ["DB_USER"]}',
-        'PASSWORD': f'{os.environ["DB_PASSWD"]}',
-        'HOST': 'db',
-        'PORT': 5432,
+        'NAME': 'book_review',
+        # 'USER': f'{os.getenv("DB_USER")}',
+        # 'PASSWORD': f'{os.environ["DB_PASSWD"]}',
+        # 'HOST': 'db',
+        # 'PORT': 5432,
     }
 }
 
