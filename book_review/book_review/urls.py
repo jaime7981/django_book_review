@@ -15,13 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.views.generic import RedirectView
-from django.urls import path, include
+from django.urls import path
+from books.scaffolding import BookCrudManager, AuthorCrudManager, CountryCrudManager, ReviewCrudManager, SalesCrudManager
+book_crud = BookCrudManager()
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/books/')),
-    path('books/', include('books.urls')),
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += book_crud.get_url_patterns()
+urlpatterns += AuthorCrudManager().get_url_patterns()
+urlpatterns += CountryCrudManager().get_url_patterns()
+urlpatterns += ReviewCrudManager().get_url_patterns()
+urlpatterns += SalesCrudManager().get_url_patterns()
