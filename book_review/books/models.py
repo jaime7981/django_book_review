@@ -11,6 +11,9 @@ class Book(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -23,12 +26,18 @@ class Author(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Country(models.Model):
     name = models.CharField(
         max_length=100,
         unique=True
     )
+
+    def __str__(self):
+        return self.name
 
 class Review(models.Model):
     text = models.TextField()
@@ -41,6 +50,9 @@ class Review(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return f'{self.book.name}: {self.text}'
+
 
 class Sales(models.Model):
     date = models.DateField()
@@ -50,3 +62,6 @@ class Sales(models.Model):
         'Book',
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.book.name

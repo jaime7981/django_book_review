@@ -1,5 +1,6 @@
 import os
 import django
+import random
 from faker import factory, Faker
 from model_bakery.recipe import Recipe,foreign_key 
 
@@ -33,7 +34,7 @@ def delete_data():
     print('data deleted')
 
 def create_countries():
-    for country_number in range(20):
+    for country_number in range(21):
         country, created = Country.objects.get_or_create(
             name=fake.country()
         )
@@ -41,17 +42,21 @@ def create_countries():
     print('countries created')
 
 def create_authors():
-    for author_number in range(50):
-        Author.objects.create(
+    countries = Country.objects.all()
+    for author_number in range(51):
+        author = Author.objects.create(
             name=fake.name(),
             birth_date=fake.date(),
             description=fake.text(),
-            country=foreign_key(Country)
+            country=random.choice(countries)
         )
+        author.save()
 
 def seed_data():
     print("Seeding data...")
+    delete_data()
     create_countries()
+    create_authors()
 
 if __name__ == '__main__':
     seed_data()
