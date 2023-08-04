@@ -1,0 +1,16 @@
+{% extends "header_template.html" %}
+{% block content %}
+
+{% block object %}
+
+{% endblock %}
+
+<div>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form }}
+        <input type='submit'>
+    </form>
+</div>
+
+{% endblock %}

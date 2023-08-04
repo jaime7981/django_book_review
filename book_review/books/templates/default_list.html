@@ -1,0 +1,22 @@
+{% extends "header_template.html" %}
+{% block content %}
+
+{% block object %}
+
+{% endblock %}
+
+<div>
+    <h2><a href='{% url object_list.model.create_url_name %}'>Create</a></h2>
+    <ul>
+        {% for object in object_list %}
+            <li>
+                {{ object }}
+                <a href='{% url object.detail_url_name object.id %}'>detail</a>
+                <a href='{% url object.update_url_name object.id %}'>update</a>
+                <a href='{% url object.delete_url_name object.id %}'>delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
