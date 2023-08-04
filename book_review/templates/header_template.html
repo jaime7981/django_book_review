@@ -1,4 +1,10 @@
 {% load static %}
+{% load generic_scaffold_tags %}
+{% set_urls_for_scaffold prefix="authors" as author_url %}
+{% set_urls_for_scaffold prefix="books" as book_url %}
+{% set_urls_for_scaffold prefix="reviews" as review_url %}
+{% set_urls_for_scaffold prefix="sales" as sale_url %}
+{% set_urls_for_scaffold prefix="countries" as countrie_url %}
 <!DOCTYPE html>
 <html lang="es-CL">
     <head>
@@ -12,7 +18,11 @@
             <nav class="top-navbar">
                 <ul class="pages-nav">
                     <li><a href="{% url 'main' %}">Main</a></li>
-                    <li><a href="{% url 'authors' %}">Authors</a></li>
+                    <li><a href="{% url author_url.list %}">Authors</a></li>
+                    <li><a href="{% url book_url.list %}">Books</a></li>
+                    <li><a href="{% url review_url.list %}">Reviews</a></li>
+                    <li><a href="{% url sale_url.list %}">Sales</a></li>
+                    <li><a href="{% url countrie_url.list %}">Countries</a></li>
                 </ul>
             </nav>
         </header>

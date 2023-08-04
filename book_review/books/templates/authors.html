@@ -1,5 +1,6 @@
 {% extends "header_template.html" %}
 {% load static %}
+{% load generic_scaffold_tags %}
 {% block content %}
 
 <h1>Authors</h1>
@@ -11,7 +12,8 @@
             <p>{{ author.name }}</p>
         </div>
         <div>
-            <span><a href="{% url 'author' author.id %}">CRUD</a></span>
+            <span><a href="{% url 'author' author.id %}">GO</a></span>
+            <span><a href="{% url author.delete_url_name author.id %}">DELETE</a></span>
         </div>
     </div>
     {% endfor %}

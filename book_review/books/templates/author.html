@@ -1,5 +1,6 @@
 {% extends "header_template.html" %}
 {% load static %}
+{% load generic_scaffold_tags %}
 {% block content %}
 
 <h1>Author</h1>
@@ -11,6 +12,11 @@
 
 <div>
     <p>CRUD</p>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form }}
+        <input type='submit'>
+    </form>
 </div>
 
 {% endblock %}
