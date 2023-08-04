@@ -1,0 +1,21 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<h1>Author Detail</h1>
+
+<div>
+    <h3>Name</h3>
+    <p>{{ object.name }}</p>
+</div>
+
+<div>
+    <h3>Links</h3>
+    <ul>
+        <li><a href="{% url author_url.update object.id %}">UPDATE</a></li>
+        <li><a href="{% url author_url.delete object.id %}">DELETE</a></li>
+    </ul>
+</div>
+
+{% endblock %}
