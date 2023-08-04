@@ -1,0 +1,20 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Authors</h1>
+
+<div>
+    {% for author in authors %}
+    <div>
+        <div>
+            <p>{{ author.name }}</p>
+        </div>
+        <div>
+            <span><a href="{% url 'author' author.id %}">CRUD</a></span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
