@@ -25,8 +25,8 @@ review_crud = ReviewCrudManager()
 sales_crud = SalesCrudManager()
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/book/')),
-    path('book/', include('books.urls')),
+    path('', RedirectView.as_view(url='/core/main')),
+    path('core/', include('books.urls')),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

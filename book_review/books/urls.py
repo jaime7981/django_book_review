@@ -1,9 +1,6 @@
-from django.views.generic import RedirectView
 from django.urls import path
-from . import views as books
+from . import views as views
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/book/main/')),
-    path('main/', books.main, name = 'main'),
-    path('author/', books.author, name = 'authors'),
+    path('main/', views.main, name='main'),
 ]

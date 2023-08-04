@@ -29,10 +29,10 @@ def delete_data():
 
     for review in Review.objects.all():
         review.delete()
-    
+
     for sales in Sales.objects.all():
         sales.delete()
-    
+
     print('data deleted')
 
 
