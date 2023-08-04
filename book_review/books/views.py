@@ -6,6 +6,9 @@ def main(request):
     authors = Author.objects.all()
     return render(request, 'main.html', context={'authors': authors})
 
+def crud(request):
+    return render(request, 'crud.html')
+
 def author(request, author_id=None):
     if author_id == None:
         authors = Author.objects.all()

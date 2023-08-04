@@ -12,8 +12,9 @@
             <p>{{ author.name }}</p>
         </div>
         <div>
-            <span><a href="{% url 'author' author.id %}">GO</a></span>
-            <span><a href="{% url author.delete_url_name author.id %}">DELETE</a></span>
+            <span><a href="{% url author_url.detail author.id %}">DETAIL</a></span>
+            <span><a href="{% url author_url.update author.id %}">UPDATE</a></span>
+            <span><a href="{% url author_url.delete author.id %}">DELETE</a></span>
         </div>
     </div>
     {% endfor %}

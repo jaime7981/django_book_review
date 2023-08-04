@@ -1,0 +1,18 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<h1>CRUD</h1>
+
+<div>
+    <ul>
+        <li><a href="{% url author_url.list %}">Authors</a></li>
+        <li><a href="{% url book_url.list %}">Books</a></li>
+        <li><a href="{% url review_url.list %}">Reviews</a></li>
+        <li><a href="{% url sale_url.list %}">Sales</a></li>
+        <li><a href="{% url countrie_url.list %}">Countries</a></li>
+    </ul>
+</div>
+
+{% endblock %}
