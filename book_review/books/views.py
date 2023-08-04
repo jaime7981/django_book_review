@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from models import Book, Author, Country, Review, Sales
+from .models import Book, Author, Country, Review, Sales
 
 # Create your views here.
 def main(request):

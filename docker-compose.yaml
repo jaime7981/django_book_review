@@ -16,9 +16,8 @@ services:
       - db
     ports:
      - 8000:8000
-    restart: always
     #command: gunicorn BookReview.wsgi:application --bind 0.0.0.0:8000
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python seed_data.py && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
   db:
     volumes:
       - ./data/db:/var/lib/postgresql/data
