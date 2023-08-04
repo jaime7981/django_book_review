@@ -135,6 +135,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Production DB
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': f'{os.getenv("DB_NAME")}',
+        'USER': f'{os.getenv("DB_USER")}',
+        'PASSWORD': f'{os.environ["DB_PASSWD"]}',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
 '''
 
 # Production DB
