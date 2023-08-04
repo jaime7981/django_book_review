@@ -1,22 +1,6 @@
+{% extends "default_confirm_delete.html" %}
+{% block object %}
 
-{% extends "header_template.html" %}
-{% load static %}
-{% load generic_scaffold_tags %}
-{% block content %}
-
-<h1>Author Confirm Delete</h1>
-
-<div>
-    <h3>Name</h3>
-    <p>{{ object.name }}</p>
-</div>
-
-<div>
-    <form method='POST'>
-        {% csrf_token %}
-        <input type='submit'>
-    </form>
-    <a href='{% url object.list_url_name %}'>List</a>
-</div>
+<h1>Delete Author</h1>
 
 {% endblock %}
