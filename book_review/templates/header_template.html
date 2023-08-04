@@ -1,5 +1,6 @@
 {% load static %}
 {% load generic_scaffold_tags %}
+{% load tailwind_tags %}
 {% set_urls_for_scaffold prefix="authors" as author_url %}
 {% set_urls_for_scaffold prefix="books" as book_url %}
 {% set_urls_for_scaffold prefix="reviews" as review_url %}
@@ -11,6 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Books Review</title>
+        {% tailwind_css %}
     </head>
 
     <body>
