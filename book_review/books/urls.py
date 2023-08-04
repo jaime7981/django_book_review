@@ -5,6 +5,5 @@ from . import views as books
 urlpatterns = [
     path('', RedirectView.as_view(url='/book/main/')),
     path('main/', books.main, name = 'main'),
-    path('crud/', books.crud, name = 'crud'),
     path('author/', books.author, name = 'authors'),
 ]
