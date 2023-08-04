@@ -5,7 +5,7 @@
 {% set_urls_for_scaffold prefix="books" as book_url %}
 {% set_urls_for_scaffold prefix="reviews" as review_url %}
 {% set_urls_for_scaffold prefix="sales" as sale_url %}
-{% set_urls_for_scaffold prefix="countries" as countrie_url %}
+{% set_urls_for_scaffold prefix="countries" as country_url %}
 <!DOCTYPE html>
 <html lang="es-CL">
     <head>
@@ -18,15 +18,13 @@
     <body>
         <header title="top-headbar">
             <nav class="top-navbar">
-                <ul class="pages-nav">
-                    <li><a href="{% url 'main' %}">Main</a></li>
-                    <li><a href="{% url 'crud' %}">CRUD</a></li>
-                    <li><a href="{% url author_url.list %}">Authors</a></li>
-                    <li><a href="{% url book_url.list %}">Books</a></li>
-                    <li><a href="{% url review_url.list %}">Reviews</a></li>
-                    <li><a href="{% url sale_url.list %}">Sales</a></li>
-                    <li><a href="{% url countrie_url.list %}">Countries</a></li>
-                </ul>
+                <div class='flex flex-row justify-center items-center text-4xl gap-5 pt-5'>
+                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'author' in request.path %}text-6xl{% endif %}" href="{% url author_url.list %}">Authors</a>
+                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'book' in request.path %}text-6xl{% endif %}" href="{% url book_url.list %}">Books</a>
+                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'review' in request.path %}text-6xl{% endif %}" href="{% url review_url.list %}">Reviews</a>
+                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'sales' in request.path %}text-6xl{% endif %}" href="{% url sale_url.list %}">Sales</a>
+                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'countr' in request.path %}text-6xl{% endif %}" href="{% url country_url.list %}">Countries</a>
+                </div>
             </nav>
         </header>
 
