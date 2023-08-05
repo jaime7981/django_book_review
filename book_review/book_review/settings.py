@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'books.apps.BooksConfig',
+    'core.apps.CoreConfig',
     'generic_scaffold',
     'tailwind',
     'theme',
@@ -107,7 +107,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['templates',
-                 'books/templates',
+                 'core/templates',
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

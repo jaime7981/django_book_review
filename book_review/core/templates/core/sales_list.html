@@ -1,0 +1,41 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% set_urls_for_scaffold prefix="sales/" as sales_url_names %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <div class='p-5'>
+    <div class='text-center p-5 py-2 bg-gradient-to-r bg-contain from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 max-w-fit rounded-full'>
+      <a href="{% url sale_url.create %}">Create New Sale</a>
+    </div>
+  </div>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sale in object_list %}
+      <tr>
+        <td>{{sale.book}}</td>
+        <td class='text-center'>{{sale.date}}</td>
+        <td class='text-center'>{{sale.amount}}</td>
+        <td>
+          <div class='flex gap-2'>
+            <a href="{% url sale_url.detail sale.id %}">{% include 'core/icons/eye.html' %}</a>
+            <a href="{% url sale_url.update sale.id %}">{% include 'core/icons/pencil-square.html' %}</a>
+            <a href="{% url sale_url.delete sale.id %}">{% include 'core/icons/trash.html' %}</a>
+          </div>
+        </td>
+      
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

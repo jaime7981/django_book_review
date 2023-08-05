@@ -1,0 +1,13 @@
+{% extends 'header_template.html' %}
+{% block content%}
+
+<div class='flex flex-col'>
+  <div class='text-center'>
+    <h1> {{ book.name }} </h1>
+    <h2> {{ book.author }} </h2>
+    <h3> {{ book.publish_date }} </h3>
+    <p> {{ book.summary }} </p>
+  </div>
+</div>
+
+{% endblock %}

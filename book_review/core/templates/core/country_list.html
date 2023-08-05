@@ -1,0 +1,37 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% set_urls_for_scaffold prefix="countries/" as countries_url_names %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <div class='p-5'>
+    <div class='text-center p-5 py-2 bg-gradient-to-r bg-contain from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 max-w-fit rounded-full'>
+      <a href="{% url country_url.create %}">Create New country</a>
+    </div>
+  </div>
+  <table class="table-auto min-w-[50%]">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for country in object_list %}
+      <tr>
+        <td>{{country.name}}</td>
+        <td>
+          <div class='flex gap-2 justify-center'>
+            <a href="{% url country_url.detail country.id %}">{% include 'core/icons/eye.html' %}</a>
+            <a href="{% url country_url.update country.id %}">{% include 'core/icons/pencil-square.html' %}</a>
+            <a href="{% url country_url.delete country.id %}">{% include 'core/icons/trash.html' %}</a>
+          </div>
+        </td>
+      
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

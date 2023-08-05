@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from generic_scaffold import get_url_names
 
 
 class Book(models.Model):
@@ -39,6 +41,10 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse(get_url_names(prefix='countries/')['detail'], args=[self.id])
+
+
 class Review(models.Model):
     text = models.TextField()
     rating = models.IntegerField()
@@ -64,4 +70,7 @@ class Sales(models.Model):
     )
 
     def __str__(self):
-        return self.book.name
+        return self.book.name + ' ' + str(self.date) + ' ' + str(self.amount)
+
+    def get_absolute_url(self):
+        return reverse(get_url_names(prefix='sales/')['detail'], args=[self.id])

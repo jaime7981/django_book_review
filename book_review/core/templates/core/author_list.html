@@ -1,0 +1,38 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <div class='p-5'>
+    <div class='text-center p-5 py-2 bg-gradient-to-r bg-contain from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 max-w-fit rounded-full'>
+      <a href="{% url author_url.create %}">Create New Author</a>
+    </div>
+  </div>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Country</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in object_list %}
+      <tr>
+        <td>{{author.name}}</td>
+        <td>{{author.birth_date}}</td>
+        <td>{{author.country}}</td>
+        <td>
+          <a href="{% url author_url.detail author.id %}">DETAIL</a>
+          <a href="{% url author_url.update author.id %}">UPDATE</a>
+          <a href="{% url author_url.delete author.id %}">DELETE</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

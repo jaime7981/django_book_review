@@ -16,23 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
-from books.scaffolding import BookCrudManager, AuthorCrudManager, CountryCrudManager, ReviewCrudManager, SalesCrudManager
-book_crud = BookCrudManager()
-author_crud = AuthorCrudManager()
-country_crud = CountryCrudManager()
-review_crud = ReviewCrudManager()
-sales_crud = SalesCrudManager()
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/core/main')),
-    path('core/', include('books.urls')),
+    path('', include('core.urls')),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
-
-urlpatterns += book_crud.get_url_patterns()
-urlpatterns += author_crud.get_url_patterns()
-urlpatterns += country_crud.get_url_patterns()
-urlpatterns += review_crud.get_url_patterns()
-urlpatterns += sales_crud.get_url_patterns()
