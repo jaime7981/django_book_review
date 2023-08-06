@@ -5,12 +5,10 @@
 
 {% endblock %}
 
-<div>
-    <h3>Links</h3>
-    <ul>
-        <li><a href='{% url object.detail_url_name object.id %}'>detail</a></li>
-        <li><a href='{% url object.update_url_name object.id %}'>update</a></li>
-        <li><a href='{% url object.delete_url_name object.id %}'>delete</a></li>
+<div class="flex flex-col items-center pt-10">
+    <ul class='flex gap-2'>
+      <li><a href="{% url object.update_url_name object.id %}">{% include 'core/icons/pencil-square.html' with size_class="w-12 h-12" %}</a></li>
+      <li><a href="{% url object.delete_url_name object.id %}">{% include 'core/icons/trash.html' with size_class="w-12 h-12" %}</a></li>
     </ul>
 </div>
 
