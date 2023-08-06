@@ -36,3 +36,34 @@ def booksTop10(request):
         'top_books': top_books
     }
     return render(request, 'books_top_10.html', context)
+
+def booksTopSelling(request):
+
+    top_selling_books = Book.objects.annotate(total_sales=Sum('sales__amount')).order_by('-total_sales')[:50]
+
+    for book in top_selling_books:
+        book.total_sales = book.total_sales
+        book.author_sales = getAuthorTotalSalesByBook(book)
+        book.is_book_top_5 = isBookTop5SellingOnPublicationYear(book)
+
+
+    return render(request, 'books_top_50_selling.html', context={'top_selling_books':top_selling_books})
+
+def getAuthorTotalSalesByBook(book):
+    author = book.author
+    total_sales = 0
+
+    for book in author.book_set.all():
+        total_sales += book.sales_set.all().aggregate(Sum('amount'))['amount__sum']
+
+    return total_sales
+
+def isBookTop5SellingOnPublicationYear(book):
+    publication_year = book.publish_date
+    top_5_selling_books = Book.objects.annotate(total_sales=Sum('sales__amount')).order_by('-total_sales')[:5]
+
+    for book in top_5_selling_books:
+        if book.publish_date == publication_year:
+            return True
+
+    return False

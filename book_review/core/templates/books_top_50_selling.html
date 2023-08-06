@@ -1,0 +1,31 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <table class="table-auto min-w-[50%] mt-5">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Book Sales</th>
+        <th>Author Sales</th>
+        <th>Was Top 5?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in top_selling_books %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td class='text-center'>{{book.name}}</td>
+        <td class='text-center'>{{book.total_sales}}</td>
+        <td class='text-center'>{{book.author_sales}}</td>
+        <td class='text-center'>{{book.is_book_top_5}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -8,6 +8,7 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('authors_info/', views.authorsInfo, name='authors_info'),
     path('books_top_10/', views.booksTop10, name='books_top_10'),
+    path('books_top_selling/', views.booksTopSelling, name='books_top_selling'),
 ]
 
 book_crud = BookCrudManager()
