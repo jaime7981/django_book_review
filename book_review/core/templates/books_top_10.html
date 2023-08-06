@@ -1,0 +1,31 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <table class="table-auto min-w-[50%] mt-5">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Popular Highest</th>
+        <th>Popular Lowest</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in top_books %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td class='text-center'>{{book.name}}</td>
+        <td class='text-center'>{{book.rating|floatformat:1}}</td>
+        <td class='text-center'>{{book.best_review.text}}</td>
+        <td class='text-center'>{{book.worst_review.text}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

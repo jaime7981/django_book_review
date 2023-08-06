@@ -20,3 +20,19 @@ def authorsInfo(request):
     )
 
     return render(request, 'authors_info.html', {'authors_info': authors})
+
+
+def booksTop10(request):
+    # A table that shows the top 10 rated books of all time, with their most
+    # popular highest and lowest rated review.
+    top_books = Book.objects.annotate(avg_rating=Avg('review__rating')).order_by('-avg_rating')[:10]
+
+    for book in top_books:
+        book.rating = book.avg_rating
+        book.best_review = book.review_set.order_by('-rating', '-upvotes').first()
+        book.worst_review = book.review_set.order_by('rating', '-upvotes').first()
+
+    context = {
+        'top_books': top_books
+    }
+    return render(request, 'books_top_10.html', context)
