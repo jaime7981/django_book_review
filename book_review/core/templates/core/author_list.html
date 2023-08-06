@@ -25,9 +25,11 @@
         <td>{{author.birth_date}}</td>
         <td>{{author.country}}</td>
         <td>
-          <a href="{% url author_url.detail author.id %}">DETAIL</a>
-          <a href="{% url author_url.update author.id %}">UPDATE</a>
-          <a href="{% url author_url.delete author.id %}">DELETE</a>
+          <div class='flex gap-2'>
+            <a href="{% url author_url.detail author.id %}">{% include 'core/icons/eye.html' %}</a>
+            <a href="{% url author_url.update author.id %}">{% include 'core/icons/pencil-square.html' %}</a>
+            <a href="{% url author_url.delete author.id %}">{% include 'core/icons/trash.html' %}</a>
+          </div>
         </td>
       </tr>
       {% endfor %}
