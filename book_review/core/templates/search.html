@@ -1,0 +1,42 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="flex flex-col items-center">
+            <label for="search_query" class="text-2xl">Search</label>
+            <input type="text" name="search_query" id="search_query" value="{{search_query}}" class="border-2 border-black rounded-lg w-1/2">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Search</button>
+        </div>
+    </form>
+</div>
+
+<div class='flex flex-col items-center'>
+  <table class="table-auto min-w-[50%] mt-5">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Publish Date</th>
+        <th>Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in search_books %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td class='text-center'>{{book.name}}</td>
+        <td class='text-center'>{{book.summary}}</td>
+        <td class='text-center'>{{book.publish_date}}</td>
+        <td class='text-center'>{{book.author}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

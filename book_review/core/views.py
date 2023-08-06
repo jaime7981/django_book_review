@@ -67,3 +67,18 @@ def isBookTop5SellingOnPublicationYear(book):
             return True
 
     return False
+
+def search(request, search_query = None):
+    # A search box that allows you to search for books by title, author,
+    # publisher, genre, and year of publication.
+    search_books = Book.objects.none()
+
+    if request.method == 'POST':
+        search_query = request.POST.get('search_query')
+        if search_query == '':
+            search_query = None
+        
+        if search_query != None:
+            search_books = Book.objects.filter(name__icontains=search_query) | Book.objects.filter(author__name__icontains=search_query) | Book.objects.filter(summary__icontains=search_query)
+
+    return render(request, 'search.html', context={'search_books':search_books, 'search_query':search_query})
