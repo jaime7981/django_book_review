@@ -10,7 +10,7 @@
       <a href="{% url sale_url.create %}">Create New Sale</a>
     </div>
   </div>
-  <table class="table-auto">
+  <table class="table-auto min-w-[50%]">
     <thead>
       <tr>
         <th>Book</th>
@@ -23,7 +23,7 @@
       {% for sale in object_list %}
       <tr>
         <td>{{sale.book}}</td>
-        <td class='text-center'>{{sale.date}}</td>
+        <td class='text-center'>{{sale.date|date:"Y"}}</td>
         <td class='text-center'>{{sale.amount}}</td>
         <td>
           <div class='flex gap-2'>
