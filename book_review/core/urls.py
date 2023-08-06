@@ -6,6 +6,8 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('', RedirectView.as_view(url='main/')),
     path('main/', views.main, name='main'),
+    path('authors_info/', views.authorsInfo, name='authors_info'),
+    path('books_top_10/', views.booksTop10, name='books_top_10'),
 ]
 
 book_crud = BookCrudManager()
