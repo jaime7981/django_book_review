@@ -1,0 +1,29 @@
+{% extends "header_template.html" %}
+{% load static %}
+{% load generic_scaffold_tags %}
+{% block content %}
+
+<div class='flex flex-col items-center'>
+  <table class="table-auto min-w-[50%] mt-5">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th># of books</th>
+        <th>Average Score</th>
+        <th>Total Sales</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in authors_info %}
+      <tr>
+        <td>{{author.name}}</td>
+        <td class='text-center'>{{author.books_count}}</td>
+        <td class='text-center'>{{author.avg_score|floatformat:1 }}</td>
+        <td class='text-center'>{{author.total_sales}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
