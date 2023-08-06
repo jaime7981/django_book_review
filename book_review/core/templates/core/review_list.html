@@ -29,9 +29,11 @@
         <td>{{ review.date }}</td>
         <td>{{ review.book }}</td>
         <td>
-          <span><a href="{% url review_url.detail review.id %}">DETAIL</a></span>
-          <span><a href="{% url review_url.update review.id %}">UPDATE</a></span>
-          <span><a href="{% url review_url.delete review.id %}">DELETE</a></span>
+          <div class='flex gap-2'>
+            <a href="{% url review_url.detail review.id %}">{% include 'core/icons/eye.html' %}</a>
+            <a href="{% url review_url.update review.id %}">{% include 'core/icons/pencil-square.html' %}</a>
+            <a href="{% url review_url.delete review.id %}">{% include 'core/icons/trash.html' %}</a>
+          </div>
         </td>
       </tr>
       {% endfor %}
