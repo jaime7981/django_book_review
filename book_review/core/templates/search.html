@@ -26,15 +26,21 @@
       </tr>
     </thead>
     <tbody>
-      {% for book in search_books %}
-      <tr>
-        <td>{{forloop.counter}}</td>
-        <td class='text-center'>{{book.name}}</td>
-        <td class='text-center'>{{book.summary}}</td>
-        <td class='text-center'>{{book.publish_date}}</td>
-        <td class='text-center'>{{book.author}}</td>
-      </tr>
-      {% endfor %}
+      {% if search_books %}
+        {% for book in search_books %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td class='text-center'>{{book.name}}</td>
+            <td class='text-center'>{{book.summary}}</td>
+            <td class='text-center'>{{book.publish_date}}</td>
+            <td class='text-center'>{{book.author}}</td>
+          </tr>
+        {% endfor %} 
+      {% else %}
+        <tr>
+          <td colspan="5" class='text-center'>No books found</td>
+        </tr>
+      {% endif %}
     </tbody>
   </table>
 </div>
