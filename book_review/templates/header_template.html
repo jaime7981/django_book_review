@@ -15,32 +15,53 @@
         {% tailwind_css %}
     </head>
 
-    <body>
-        <header title="top-headbar">
-            <nav class="top-navbar">
-                <div class='flex flex-row justify-center items-center text-4xl gap-5 pt-5'>
-                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'author' in request.path %}text-6xl{% endif %}" href="{% url author_url.list %}">Authors</a>
-                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'book' in request.path %}text-6xl{% endif %}" href="{% url book_url.list %}">Books</a>
-                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'review' in request.path %}text-6xl{% endif %}" href="{% url review_url.list %}">Reviews</a>
-                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'sales' in request.path %}text-6xl{% endif %}" href="{% url sale_url.list %}">Sales</a>
-                  <a class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 hover:from-violet-500 hover:to-pink-500 {% if 'countr' in request.path %}text-6xl{% endif %}" href="{% url country_url.list %}">Countries</a>
-                </div>
-            </nav>
-        </header>
-
-        <div id="django-message">
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+    <body class='bg-slate-200'>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+      <div class='flex flex-row justify-center items-center text-4xl gap-10 pt-5'>
+        <button id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="50" data-dropdown-trigger="hover" class="text-center inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 border-2 border-transparent hover:from-violet-500 hover:to-pink-500 hover:border-violet-400" type="button">Models <div class='text-violet-500'>{% include 'icons/arrow_down.html' %}</div>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdownDelay" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+          <ul class="py-2 text-base text-violet-700" aria-labelledby="dropdownDelayButton">
+            <li>
+              <a href="{% url author_url.list %}" class="block px-4 py-2 hover:bg-violet-100">Authors</a>
+            </li>
+            <li>
+              <a href="{% url book_url.list %}" class="block px-4 py-2 hover:bg-violet-100">Books</a>
+            </li>
+            <li>
+              <a href="{% url review_url.list %}" class="block px-4 py-2 hover:bg-violet-100">Reviews</a>
+            </li>
+            <li>
+              <a href="{% url sale_url.list %}" class="block px-4 py-2 hover:bg-violet-100">Sales</a>
+            </li>
+            <li>
+              <a href="{% url country_url.list %}" class="block px-4 py-2 hover:bg-violet-100">Countries</a>
+            </li>
+          </ul>
         </div>
 
-        <div class="main-content">
-            {% block content %}
-            {% endblock %}
-        </div>
+        <a href="{% url 'authors_info' %}" class="inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 border-2 border-transparent hover:from-violet-500 hover:to-pink-500 hover:border-violet-400 cursor-pointer">
+          Authors Info
+        </a>
+        <a href="{% url 'books_top_10' %}" class="inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 border-2 border-transparent hover:from-violet-500 hover:to-pink-500 hover:border-violet-400 cursor-pointer">
+          Books Top 10
+        </a>
+      </div>
+
+      <div id="django-message">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+      </div>
+
+      <div class="main-content">
+          {% block content %}
+          {% endblock %}
+      </div>
     </body>
 </html>
