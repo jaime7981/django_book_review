@@ -16,6 +16,9 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse(get_url_names(prefix='books/')['detail'], args=[self.id])
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
