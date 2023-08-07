@@ -60,7 +60,9 @@ def getAuthorTotalSalesByBook(book):
     total_sales = 0
 
     for book in author.book_set.all():
-        total_sales += book.sales_set.all().aggregate(Sum("amount"))["amount__sum"]
+        author_total_sales = book.sales_set.all().aggregate(Sum("amount"))["amount__sum"]
+        if author_total_sales != None:
+            total_sales += author_total_sales
 
     return total_sales
 
