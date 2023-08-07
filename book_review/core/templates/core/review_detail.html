@@ -1,0 +1,37 @@
+{% extends "core/default_detail.html" %}
+{% block object %}
+
+<h1 class='flex flex-col items-center text-5xl py-5'>
+  Review Detail
+</h1>
+
+<div class="flex flex-col items-center">
+  <dl class="max-w-md divide-y divide-gray-700">
+    <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Text</dt>
+        <dd class="text-lg font-semibold">{{object.text}}</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Rating</dt>
+        <dd class="text-lg font-semibold">{{object.rating}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Upvotes</dt>
+        <dd class="text-lg font-semibold">{{object.upvotes}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+      <dt class="mb-1 text-gray-500 md:text-lg">Date</dt>
+      <dd class="text-lg font-semibold">{{object.date}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+      <dt class="mb-1 text-gray-500 md:text-lg">Book</dt>
+      <dd class="text-lg font-semibold">{{object.book}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Author</dt>
+        <dd class="text-lg font-semibold">{{object.book.author}}</dd>
+      </div>
+  </dl>
+</div>
+
+{% endblock %}
