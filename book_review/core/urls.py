@@ -10,6 +10,7 @@ urlpatterns = [
     path('books_top_10/', views.booksTop10, name='books_top_10'),
     path('books_top_selling/', views.booksTopSelling, name='books_top_selling'),
     path('search/', views.search, name='search'),
+    path('search/<int:pagination_number>/', views.search, name='search'),
 ]
 
 book_crud = BookCrudManager()

@@ -45,4 +45,20 @@
   </table>
 </div>
 
+<div>
+  <div>
+  {% for page in max_pagination_number %}
+    <a href="{% url 'search' %}{{page}}/?search_query={{search_query}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">{{page}}</a>
+  {% endfor %}
+  </div>
+</div>
+
+{% if search_books %}
+  <div class="flex justify-center mt-5">
+    <a href="{% url 'search' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search Again</a>
+  </div>
+{% endif %}
+
+
+
 {% endblock %}
