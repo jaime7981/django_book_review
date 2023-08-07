@@ -1,13 +1,31 @@
-{% extends 'header_template.html' %}
+{% extends 'default_detail.html' %}
 {% block content%}
 
-<div class='flex flex-col'>
-  <div class='text-center'>
-    <h1> {{ book.name }} </h1>
-    <h2> {{ book.author }} </h2>
-    <h3> {{ book.publish_date }} </h3>
-    <p> {{ book.summary }} </p>
-  </div>
+<h1 class='flex flex-col items-center text-5xl py-5'>
+  Review Detail
+</h1>
+
+<div class="flex flex-col items-center">
+  <dl class="max-w-md divide-y divide-gray-700">
+    <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Name</dt>
+        <dd class="text-lg font-semibold">{{object.name}}</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Sumary</dt>
+        <dd class="text-lg font-semibold">{{object.sumary}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg">Publish Date</dt>
+        <dd class="text-lg font-semibold">{{object.publish_date}}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+      <dt class="mb-1 text-gray-500 md:text-lg">Author</dt>
+      <dd class="text-lg font-semibold">{{object.author}}</dd>
+    </div>
+  </dl>
 </div>
+
+{% endblock %}
 
 {% endblock %}
