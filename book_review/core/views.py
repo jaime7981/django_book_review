@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.db.models import Count, Avg, Sum
+from django.urls import reverse_lazy
 from core.models import Author, Book, Country
 import math
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 
 PAGINATION_SIZE = 10
 
@@ -204,9 +205,11 @@ class UpdateBookView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['book'].publish_date = context['book'].publish_date.strftime('%Y-%m-%d')
         context['authors'] = Author.objects.all()
-        print(context['authors'])
         return context
 
     def form_valid(self, form):
-        super().form_valid(form)
-        return render(self.request, 'core/book_detail.html', {'book': self.object})
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('books/_core_book_detail', kwargs={'pk': self.object.pk})
