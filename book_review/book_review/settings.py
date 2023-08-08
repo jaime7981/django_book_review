@@ -153,11 +153,11 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'book_review',
-        # 'USER': f'{os.getenv("DB_USER")}',
-        # 'PASSWORD': f'{os.environ["DB_PASSWD"]}',
-        # 'HOST': 'db',
-        # 'PORT': 5432,
+        'NAME': f'{os.getenv("DB_NAME")}',
+        'USER': f'{os.getenv("DB_USER")}',
+        'PASSWORD': f'{os.environ["DB_PASSWD"]}',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

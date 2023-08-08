@@ -129,7 +129,11 @@ def search(request, pagination_number=1, search_query=""):
             elif search_books.count() > PAGINATION_SIZE * pagination_number:
                 if search_books.count() < PAGINATION_SIZE * (pagination_number + 1):
                     search_books = search_books[
-                        PAGINATION_SIZE * (pagination_number - 1): PAGINATION_SIZE * pagination_number
+                        PAGINATION_SIZE * (pagination_number): PAGINATION_SIZE * (pagination_number + 1)
+                    ]
+                else:
+                    search_books = search_books[
+                        PAGINATION_SIZE * (pagination_number - 1): PAGINATION_SIZE * (pagination_number)
                     ]
 
             elif search_books.count() < PAGINATION_SIZE * pagination_number:
