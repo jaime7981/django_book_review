@@ -95,7 +95,11 @@ def search(request, pagination_number=1, search_query=""):
         search_query = request.POST.get("search_query")
 
         if search_query != "":
-            search_books = Book.objects.filter(summary__icontains=search_query)
+            words = search_query.split(" ")
+            for word in words:
+                search_books = search_books | Book.objects.filter(
+                    summary__icontains=word
+                )
 
             max_pagination_number = math.ceil(search_books.count() / PAGINATION_SIZE)
 
@@ -106,7 +110,11 @@ def search(request, pagination_number=1, search_query=""):
         search_query = request.GET.get("search_query")
 
         if search_query != "" and search_query is not None:
-            search_books = Book.objects.filter(summary__icontains=search_query)
+            words = search_query.split(" ")
+            for word in words:
+                search_books = search_books | Book.objects.filter(
+                    summary__icontains=word
+                )
 
             if pagination_number < 1:
                 pagination_number = 1
