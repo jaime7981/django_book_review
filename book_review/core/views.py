@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count, Avg, Sum
 from django.urls import reverse_lazy
-from core.models import Author, Book, Country
+from core.models import Author, Book, Country, Review
 import math
 from django.views.generic.edit import UpdateView, CreateView
 
@@ -211,3 +211,36 @@ class UpdateBookView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('books/_core_book_detail', kwargs={'pk': self.object.pk})
+
+
+class CreateReviewView(CreateView):
+    model = Review
+    template_name = 'core/review_form.html'
+    fields = ['text', 'rating', 'upvotes', 'date', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('reviews/_core_review_detail', kwargs={'pk': self.object.pk})
+
+
+class UpdateReviewView(UpdateView):
+    model = Review
+    template_name = 'core/review_form.html'
+    fields = ['text', 'rating', 'upvotes', 'date', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['review'].date = context['review'].date.strftime('%Y-%m-%d')
+        context['books'] = Book.objects.all()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('reviews/_core_review_detail', kwargs={'pk': self.object.pk})
