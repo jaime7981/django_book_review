@@ -147,23 +147,18 @@ def search(request, pagination_number=1, search_query=""):
     )
 
 
-def createAuthor(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        country = request.POST.get('country')
-        description = request.POST.get('description')
-        birth_date = request.POST.get('birth_date')
+class CreateAuthorView(CreateView):
+    model = Author
+    template_name = 'core/author_form.html'
+    fields = ['name', 'birth_date', 'country', 'description']
 
-        author = Author.objects.create(
-            name=name,
-            birth_date=birth_date,
-            country_id=country,
-            description=description
-        )
-        return render(request, "core/author_detail.html", {"author": author})
-    else:
-        countries = Country.objects.all()
-        return render(request, "core/author_form.html", {"countries": countries})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['countries'] = Country.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('authors/_core_author_detail', kwargs={'pk': self.object.pk})
 
 
 class UpdateAuthorView(UpdateView):
@@ -178,8 +173,11 @@ class UpdateAuthorView(UpdateView):
         return context
 
     def form_valid(self, form):
-        super().form_valid(form)
-        return render(self.request, 'core/author_detail.html', {'author': self.object})
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('authors/_core_author_detail', kwargs={'pk': self.object.pk})
 
 
 class CreateBookView(CreateView):
