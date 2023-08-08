@@ -1,6 +1,42 @@
-{% extends "default_form.html" %}
-{% block object %}
+{% extends "header_template.html" %}
+{% block content %}
 
-<h1>Book Form</h1>
+
+<div class="flex items-center justify-center">
+  <form class='min-w-[50%] flex flex-col' method='POST'>
+    {% csrf_token %}
+    <h1 class='text-5xl py-5 text-center'>Book Form</h1>
+    <div class="mb-6">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-slate-800">Name</label>
+      <input type="name" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-800 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter the name of the book" value='{{book.name}}' required>
+    </div>
+    <div class="relative max-w-sm mb-6">
+      <label for="publish_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-slate-800">Date</label>
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none pt-6">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+          </svg>
+      </div>
+      <input name="publish_date" datepicker datepicker-format="yyyy-mm-dd" datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-800 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" value='{{book.publish_date}}'>
+    </div>
+    <div class="relative z-0 w-full mb-6 group">
+      <label for="author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-slate-800">Select your author</label>
+      <select id="author" name="author" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-800 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        {% for author in authors %}
+            <option value="{{author.id}}" {% if book.author.id == author.id %}selected{% endif %}>{{ author }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="relative z-0 w-full mb-6 group">
+      <label for="summary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-slate-800">Summary</label>
+      <textarea id="summary" name="summary" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-800 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Short summary'>{{book.summary}}</textarea>
+
+  </div>
+  <div class='flex flex-row gap-10 justify-center'>
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    <a href="{% if book.id %}{% url book.detail_url_name book.id %}{% else %}{% url book_url.list %}{% endif %}" class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">Back</a>
+  </div>
+  </form>
+</div>
 
 {% endblock %}

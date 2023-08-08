@@ -179,3 +179,40 @@ class UpdateAuthorView(UpdateView):
     def form_valid(self, form):
         super().form_valid(form)
         return render(self.request, 'core/author_detail.html', {'author': self.object})
+
+
+def createBook(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        summary = request.POST.get('summary')
+        publish_date = request.POST.get('publish_date')
+        country = request.POST.get('country')
+
+        book = Book.objects.create(
+            name=name,
+            summary=summary,
+            publish_date=publish_date,
+            country_id=country
+        )
+
+        return render(request, "core/book_detail.html", {"book": book})
+    else:
+        authors = Author.objects.all()
+        return render(request, "core/book_form.html", {"authors": authors})
+
+
+class UpdateBookView(UpdateView):
+    model = Book
+    template_name = 'core/book_form.html'
+    fields = ['name', 'summary', 'publish_date', 'author']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['book'].publish_date = context['book'].publish_date.strftime('%Y-%m-%d')
+        context['authors'] = Author.objects.all()
+        print(context['authors'])
+        return context
+
+    def form_valid(self, form):
+        super().form_valid(form)
+        return render(self.request, 'core/book_detail.html', {'book': self.object})
