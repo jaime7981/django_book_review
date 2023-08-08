@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count, Avg, Sum
 from django.urls import reverse_lazy
-from core.models import Author, Book, Country, Review
+from core.models import Author, Book, Country, Review, Sales
 import math
 from django.views.generic.edit import UpdateView, CreateView
 
@@ -244,3 +244,37 @@ class UpdateReviewView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('reviews/_core_review_detail', kwargs={'pk': self.object.pk})
+
+
+class CreateSaleView(CreateView):
+    model = Sales
+    template_name = 'core/sales_form.html'
+    fields = ['date', 'amount', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('sales/_core_sales_detail', kwargs={'pk': self.object.pk})
+
+
+class UpdateSaleView(UpdateView):
+    model = Sales
+    template_name = 'core/sales_form.html'
+    fields = ['date', 'amount', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context.keys())
+        context['sales'].date = context['sales'].date.strftime('%Y-%m-%d')
+        context['books'] = Book.objects.all()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('sales/_core_sales_detail', kwargs={'pk': self.object.pk})
