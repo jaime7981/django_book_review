@@ -11,6 +11,9 @@ urlpatterns = [
     path('books_top_selling/', views.booksTopSelling, name='books_top_selling'),
     path('search/', views.search, name='search'),
     path('search/<int:pagination_number>/', views.search, name='search'),
+    path('authors/create/', views.createAuthor, name='create_author'),
+    path('authors/update/<int:pk>', views.UpdateAuthorView.as_view(), name='update_author'),
+
 ]
 
 book_crud = BookCrudManager()

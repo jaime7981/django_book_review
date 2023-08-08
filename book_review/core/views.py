@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.db.models import Count, Avg, Sum
-from core.models import Author, Book
+from core.models import Author, Book, Country
 import math
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 
 PAGINATION_SIZE = 10
 
@@ -143,3 +145,38 @@ def search(request, pagination_number=1, search_query=""):
             "max_pagination_number": list(range(1, max_pagination_number + 1)),
         },
     )
+
+
+def createAuthor(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        country = request.POST.get('country')
+        description = request.POST.get('description')
+        birth_date = request.POST.get('birth_date')
+
+        author = Author.objects.create(
+            name=name,
+            birth_date=birth_date,
+            country_id=country,
+            description=description
+        )
+        return render(request, "core/author_detail.html", {"author": author})
+    else:
+        countries = Country.objects.all()
+        return render(request, "core/author_form.html", {"countries": countries})
+
+
+class UpdateAuthorView(UpdateView):
+    model = Author
+    template_name = 'core/author_form.html'
+    fields = ['name', 'country', 'description', 'birth_date']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['author'].birth_date = context['author'].birth_date.strftime('%Y-%m-%d')
+        context['countries'] = Country.objects.all()
+        return context
+
+    def form_valid(self, form):
+        super().form_valid(form)
+        return render(self.request, 'core/author_detail.html', {'author': self.object})

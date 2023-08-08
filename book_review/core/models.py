@@ -34,6 +34,9 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse(get_url_names(prefix='authors/')['detail'], args=[self.id])
+
 
 class Country(models.Model):
     name = models.CharField(
