@@ -5,6 +5,7 @@ import math
 
 PAGINATION_SIZE = 10
 
+
 # Create your views here.
 def main(request):
     return render(request, "main.html")
@@ -62,8 +63,10 @@ def getAuthorTotalSalesByBook(book):
     total_sales = 0
 
     for book in author.book_set.all():
-        author_total_sales = book.sales_set.all().aggregate(Sum("amount"))["amount__sum"]
-        if author_total_sales != None:
+        author_total_sales = book.sales_set.all().aggregate(Sum("amount"))[
+            "amount__sum"
+        ]
+        if author_total_sales is not None:
             total_sales += author_total_sales
 
     return total_sales
@@ -100,36 +103,34 @@ def search(request, pagination_number=1, search_query=""):
                 search_books = search_books[:PAGINATION_SIZE]
 
     elif request.method == "GET":
-        search_query = request.GET.get('search_query')
+        search_query = request.GET.get("search_query")
 
-        if search_query != "" and search_query != None:
+        if search_query != "" and search_query is not None:
             search_books = Book.objects.filter(summary__icontains=search_query)
 
             if pagination_number < 1:
                 pagination_number = 1
 
             max_pagination_number = math.ceil(search_books.count() / PAGINATION_SIZE)
-            
+
             if pagination_number == 1:
                 search_books = search_books[:PAGINATION_SIZE]
 
             elif search_books.count() > PAGINATION_SIZE * pagination_number:
                 if search_books.count() < PAGINATION_SIZE * (pagination_number + 1):
                     search_books = search_books[
-                        PAGINATION_SIZE * (pagination_number - 1) : PAGINATION_SIZE * pagination_number
+                        PAGINATION_SIZE * (pagination_number - 1): PAGINATION_SIZE * pagination_number
                     ]
-            
+
             elif search_books.count() < PAGINATION_SIZE * pagination_number:
-                search_books = search_books[
-                    PAGINATION_SIZE * (pagination_number - 1) : 
-                ]
+                search_books = search_books[PAGINATION_SIZE * (pagination_number - 1):]
 
     return render(
         request,
         "search.html",
         context={
-            "search_books": search_books, 
-            "search_query": search_query, 
+            "search_books": search_books,
+            "search_query": search_query,
             "pagination_number": pagination_number,
             "max_pagination_number": list(range(1, max_pagination_number + 1)),
         },
