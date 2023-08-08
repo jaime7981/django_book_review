@@ -11,9 +11,12 @@ urlpatterns = [
     path('books_top_selling/', views.booksTopSelling, name='books_top_selling'),
     path('search/', views.search, name='search'),
     path('search/<int:pagination_number>/', views.search, name='search'),
-    path('authors/create/', views.createAuthor, name='create_author'),
+    path('authors/create/', views.CreateAuthorView.as_view(), name='create_author'),
     path('authors/update/<int:pk>', views.UpdateAuthorView.as_view(), name='update_author'),
-
+    path('books/create/', views.CreateBookView.as_view(), name='create_book'),
+    path('books/update/<int:pk>', views.UpdateBookView.as_view(), name='update_book'),
+    path('reviews/create/', views.CreateReviewView.as_view(), name='create_review'),
+    path('reviews/update/<int:pk>', views.UpdateReviewView.as_view(), name='update_review'),
 ]
 
 book_crud = BookCrudManager()

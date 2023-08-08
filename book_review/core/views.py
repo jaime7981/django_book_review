@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.db.models import Count, Avg, Sum
-from core.models import Author, Book, Country
+from django.urls import reverse_lazy
+from core.models import Author, Book, Country, Review
 import math
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 
 PAGINATION_SIZE = 10
 
@@ -146,23 +147,18 @@ def search(request, pagination_number=1, search_query=""):
     )
 
 
-def createAuthor(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        country = request.POST.get('country')
-        description = request.POST.get('description')
-        birth_date = request.POST.get('birth_date')
+class CreateAuthorView(CreateView):
+    model = Author
+    template_name = 'core/author_form.html'
+    fields = ['name', 'birth_date', 'country', 'description']
 
-        author = Author.objects.create(
-            name=name,
-            birth_date=birth_date,
-            country_id=country,
-            description=description
-        )
-        return render(request, "core/author_detail.html", {"author": author})
-    else:
-        countries = Country.objects.all()
-        return render(request, "core/author_form.html", {"countries": countries})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['countries'] = Country.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('authors/_core_author_detail', kwargs={'pk': self.object.pk})
 
 
 class UpdateAuthorView(UpdateView):
@@ -177,5 +173,74 @@ class UpdateAuthorView(UpdateView):
         return context
 
     def form_valid(self, form):
-        super().form_valid(form)
-        return render(self.request, 'core/author_detail.html', {'author': self.object})
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('authors/_core_author_detail', kwargs={'pk': self.object.pk})
+
+
+class CreateBookView(CreateView):
+    model = Book
+    template_name = 'core/book_form.html'
+    fields = ['name', 'summary', 'publish_date', 'author']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['authors'] = Author.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('books/_core_book_detail', kwargs={'pk': self.object.pk})
+
+
+class UpdateBookView(UpdateView):
+    model = Book
+    template_name = 'core/book_form.html'
+    fields = ['name', 'summary', 'publish_date', 'author']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['book'].publish_date = context['book'].publish_date.strftime('%Y-%m-%d')
+        context['authors'] = Author.objects.all()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('books/_core_book_detail', kwargs={'pk': self.object.pk})
+
+
+class CreateReviewView(CreateView):
+    model = Review
+    template_name = 'core/review_form.html'
+    fields = ['text', 'rating', 'upvotes', 'date', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('reviews/_core_review_detail', kwargs={'pk': self.object.pk})
+
+
+class UpdateReviewView(UpdateView):
+    model = Review
+    template_name = 'core/review_form.html'
+    fields = ['text', 'rating', 'upvotes', 'date', 'book']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['review'].date = context['review'].date.strftime('%Y-%m-%d')
+        context['books'] = Book.objects.all()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('reviews/_core_review_detail', kwargs={'pk': self.object.pk})
