@@ -3,7 +3,6 @@ from django.db.models import Count, Avg, Sum
 from core.models import Author, Book, Country
 import math
 from django.views.generic.edit import UpdateView
-from django.urls import reverse_lazy
 
 PAGINATION_SIZE = 10
 
