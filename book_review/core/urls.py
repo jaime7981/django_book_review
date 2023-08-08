@@ -13,7 +13,7 @@ urlpatterns = [
     path('search/<int:pagination_number>/', views.search, name='search'),
     path('authors/create/', views.createAuthor, name='create_author'),
     path('authors/update/<int:pk>', views.UpdateAuthorView.as_view(), name='update_author'),
-    path('books/create/', views.createBook, name='create_book'),
+    path('books/create/', views.CreateBookView.as_view(), name='create_book'),
     path('books/update/<int:pk>', views.UpdateBookView.as_view(), name='update_book'),
 ]
 

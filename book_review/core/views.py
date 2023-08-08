@@ -181,24 +181,18 @@ class UpdateAuthorView(UpdateView):
         return render(self.request, 'core/author_detail.html', {'author': self.object})
 
 
-def createBook(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        summary = request.POST.get('summary')
-        publish_date = request.POST.get('publish_date')
-        country = request.POST.get('country')
+class CreateBookView(CreateView):
+    model = Book
+    template_name = 'core/book_form.html'
+    fields = ['name', 'summary', 'publish_date', 'author']
 
-        book = Book.objects.create(
-            name=name,
-            summary=summary,
-            publish_date=publish_date,
-            country_id=country
-        )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['authors'] = Author.objects.all()
+        return context
 
-        return render(request, "core/book_detail.html", {"book": book})
-    else:
-        authors = Author.objects.all()
-        return render(request, "core/book_form.html", {"authors": authors})
+    def get_success_url(self):
+        return reverse_lazy('books/_core_book_detail', kwargs={'pk': self.object.pk})
 
 
 class UpdateBookView(UpdateView):
