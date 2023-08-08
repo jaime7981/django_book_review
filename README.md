@@ -29,9 +29,16 @@ To populate the database you can enter the django container and run
 
 ## Report
 
-In this project we used django as backend and postgres as a database.
-The process of developing were easy beacause we were familiarized with the framework, also we had a dockerized template of the stack.
+In this project we used django as backend, which uses python and postgres as a database.
 
-The easiest part gere generating the models for the application, beacause the entities and fields were well defined in the assignment.
+The process of developing were easy beacause we were very familiarized with the framework, also we had a dockerized template of the stack, so installing dependencies and running the app for development was an easy task.
 
-The most difficult part were learing a scaffold module to generate the CRUD pages.
+Since we used django, it has a module which handles the connection, so we only had to add the dependencies into the requirements.txt file and add the credentials to the django settings.
+
+The easiest part gere generating the models for the application, beacause the entities and fields were well defined in the assignment and django has good management for managing the models in the database.
+
+The most difficult part were learing how to use the scaffold module to generate the CRUD pages and urls, but once we manage to setup the module we start working much faster, it save us a lot of time because we didn't had to setup the urls for each model in django urls file, we just made the templates to override the default ones.
+
+To do the specific queries for the data tables, we used django backend to do the queries, which are very powerfull and weren't too difficult use and we just had to display the data as a table in the fronted.
+
+The most time-consuming task were refactoring the search page to implement pagination beacause I've done it based on post requests and I had to change the logic to use get requests and manually filter it with the page number selected.
