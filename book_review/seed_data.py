@@ -94,6 +94,10 @@ def seed_data():
     delete_data()
     create_countries()
     create_authors()
+    print('authors created')
+    print('books created')
+    print('reviews created')
+    print('sales created')
 
 
 if __name__ == "__main__":
