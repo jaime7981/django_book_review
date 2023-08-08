@@ -1,8 +1,7 @@
 # Django Book Review
 
 ## Run Project
-You can run the proyect installing the necesary dependencies or you can run a dockerized version of it bu just running 
-
+You can run the project by installing the necesary dependencies and running it in your local machine or you can run a dockerized version of it by following the instructions below.
 
 ### Dockerized version
 
@@ -24,8 +23,8 @@ Run containers:
 You could encounter an error when running the container where the database is not ready when django is trying to start. Just start again the django container whenever the database is ready to accept conections.
 
 To populate the database you can enter the django container and run
-`python seed_data.py`
 
+`python seed_data.py`
 
 ## Report
 
@@ -33,7 +32,7 @@ In this project we used django as backend, which uses python and postgres as a d
 
 The process of developing were easy beacause we were very familiarized with the framework, also we had a dockerized template of the stack, so installing dependencies and running the app for development was an easy task.
 
-Since we used django, it has a module which handles the connection, so we only had to add the dependencies into the requirements.txt file and add the credentials to the django settings.
+Since we used django, it has a module which handles the connection of the database, so we only had to add the dependencies into the requirements.txt file and add the credentials to the django settings for the database.
 
 The easiest part gere generating the models for the application, beacause the entities and fields were well defined in the assignment and django has good management for managing the models in the database.
 
