@@ -3,19 +3,20 @@
 {% load generic_scaffold_tags %}
 {% block content %}
 
-<div>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="flex flex-col items-center">
-            <label for="search_query" class="text-2xl">Search</label>
-            <input type="text" name="search_query" id="search_query" value="{{search_query}}" class="border-2 border-black rounded-lg w-1/2">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Search</button>
+<div class="pt-5">
+  <form method="GET">
+      <div class="flex flex-col items-center gap-3">
+        <label for="search_query" class="text-5xl pt-5 pb-3">Search</label>
+        <div class="flex gap-3 w-3/4 justify-center">
+          <input type="text" name="search_query" id="search_query" value="{{search_query}}" class="border-2 border-black rounded-lg w-3/4">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
         </div>
-    </form>
+      </div>
+  </form>
 </div>
 
 <div class='flex flex-col items-center'>
-  <table class="table-auto min-w-[50%] mt-5">
+  <table class="table-auto min-w-[75%] mt-5">
     <thead>
       <tr>
         <th>#</th>
@@ -26,8 +27,8 @@
       </tr>
     </thead>
     <tbody>
-      {% if search_books %}
-        {% for book in search_books %}
+      {% if books %}
+        {% for book in books %}
           <tr>
             <td>{{forloop.counter}}</td>
             <td class='text-center'>{{book.name}}</td>
@@ -37,28 +38,39 @@
           </tr>
         {% endfor %} 
       {% else %}
-        <tr>
-          <td colspan="5" class='text-center'>No books found</td>
-        </tr>
+      {% if search_query %}
+      <tr>
+        <td colspan="5" class='text-center pt-10 text-3xl'>No books found for query "{{ search_query }}"</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="5" class='text-center pt-10 text-3xl'>Start searching for books</td>
+      </tr>
+    {% endif %}
       {% endif %}
     </tbody>
   </table>
 </div>
 
-<div>
-  <div>
-  {% for page in max_pagination_number %}
-    <a href="{% url 'search' %}{{page}}/?search_query={{search_query}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">{{page}}</a>
-  {% endfor %}
+{% if search_query and books %}
+<div class='flex justify-center py-5'>
+  <div class="pagination">
+    <span class="step-links flex flex-row justify-center items-center">
+        {% if books.has_previous %}
+            <a href="?page=1&search_query={{ search_query }}">{% include 'core/icons/chevron-double-left.html' with size_class="w-12 h-12" %}</a>
+            <a href="?page={{ books.previous_page_number }}&search_query={{ search_query }}">{% include 'core/icons/chevron-left.html' with size_class="w-12 h-12" %}</a>
+        {% endif %}
+
+        <span class="current text-4xl">
+            {{ books.number }} of {{ books.paginator.num_pages }}
+        </span>
+
+        {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}&search_query={{ search_query }}">{% include 'core/icons/chevron-right.html' with size_class="w-12 h-12" %}</a>
+            <a href="?page={{ books.paginator.num_pages }}&search_query={{ search_query }}">{% include 'core/icons/chevron-double-right.html' with size_class="w-12 h-12" %}</a>
+        {% endif %}
+    </span>
   </div>
 </div>
-
-{% if search_books %}
-  <div class="flex justify-center mt-5">
-    <a href="{% url 'search' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search Again</a>
-  </div>
 {% endif %}
-
-
-
 {% endblock %}
