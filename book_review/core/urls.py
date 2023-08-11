@@ -17,6 +17,8 @@ urlpatterns = [
     path('books/update/<int:pk>', views.UpdateBookView.as_view(), name='update_book'),
     path('reviews/create/', views.CreateReviewView.as_view(), name='create_review'),
     path('reviews/update/<int:pk>', views.UpdateReviewView.as_view(), name='update_review'),
+    path('sales/create/', views.CreateSaleView.as_view(), name='create_sale'),
+    path('sales/update/<int:pk>', views.UpdateSaleView.as_view(), name='update_sale'),
 ]
 
 book_crud = BookCrudManager()

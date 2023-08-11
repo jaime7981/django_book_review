@@ -1,6 +1,6 @@
 from generic_scaffold import CrudManager
 from .models import Book, Author, Country, Review, Sales
-from .views import UpdateAuthorView, UpdateBookView, UpdateReviewView
+from .views import UpdateAuthorView, UpdateBookView, UpdateReviewView, UpdateSaleView
 
 
 class BookCrudManager(CrudManager):
@@ -29,3 +29,4 @@ class ReviewCrudManager(CrudManager):
 class SalesCrudManager(CrudManager):
     model = Sales
     prefix = 'sales/'
+    update_view_class = UpdateSaleView

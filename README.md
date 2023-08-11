@@ -17,15 +17,23 @@ DB_NAME = "softarch_db"
 ```
 
 Run containers:
+```bash
+docker-compose up --build
+```
 
-`docker-compose up --build`
+### M1 Mac
+If it doesn't work on M1 Mac, try to run the following command:
+```bash
+DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
+```
 
 You could encounter an error when running the container where the database is not ready when django is trying to start. Just start again the django container whenever the database is ready to accept conections.
 
-To populate the database you can enter the django container and run
+To populate the database you can run this script into the django_book_review containers terminal
 
-`python seed_data.py`
-
+```bash
+python seed_data.py
+```
 ## Report
 
 In this project we used django as backend, which uses python and postgres as a database.
